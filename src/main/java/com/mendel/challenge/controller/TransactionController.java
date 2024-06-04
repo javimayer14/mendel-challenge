@@ -13,5 +13,21 @@ import java.util.List;
 @RequestMapping("/transactions")
 public class TransactionController {
 
+    private final TransactionService transactionService;
+
+    @Autowired
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
+
+    @PostMapping("/{transactionId}")
+    public ResponseEntity<Transaction> createTransaction(@PathVariable("transactionId") Long tansactionId, @RequestBody Transaction transaction) {
+        try {
+            Transaction createdTransaction = transactionService.createTransaction(transaction, tansactionId);
+            return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
