@@ -1,5 +1,6 @@
 package com.mendel.challenge.controller;
 
+import com.mendel.challenge.model.TotalSumTO;
 import com.mendel.challenge.model.Transaction;
 import com.mendel.challenge.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,21 +14,26 @@ import java.util.List;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-    private final TransactionService transactionService;
-
     @Autowired
-    public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
+    private TransactionService transactionService;
 
     @PostMapping("/{transactionId}")
     public ResponseEntity<Transaction> createTransaction(@PathVariable("transactionId") Long tansactionId, @RequestBody Transaction transaction) {
-        try {
             Transaction createdTransaction = transactionService.createTransaction(transaction, tansactionId);
             return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+    }
+
+    @GetMapping("/types/{type}")
+    public ResponseEntity<List<Long>> createTransaction(@PathVariable("type") String type) {
+            List<Long> transactionsByType = transactionService.getTransactionsByType(type);
+            return new ResponseEntity<>(transactionsByType, HttpStatus.OK);
+    }
+
+    @GetMapping("/sum/{transactionId}")
+    public ResponseEntity<TotalSumTO> createTransaction(@PathVariable("transactionId") Long transactionId) {
+            TotalSumTO totalSum = transactionService.getTotalSumById(transactionId);
+            return new ResponseEntity<>(totalSum, HttpStatus.OK);
+
     }
 
 }
