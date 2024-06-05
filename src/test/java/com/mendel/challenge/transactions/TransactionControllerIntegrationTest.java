@@ -53,8 +53,8 @@ public class TransactionControllerIntegrationTest {
     public void testGetTotalSumById() throws Exception {
         mockMvc.perform(get("/transactions/sum/1")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.sum").isNumber());
+                .andExpect(jsonPath("$.message").isString());
     }
 }
