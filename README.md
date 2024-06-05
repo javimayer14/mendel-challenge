@@ -10,7 +10,7 @@ Instrucciones guia para obtener una copia de este proyecto y levantarlo localmen
 
 ### Contenedor 🔧
 
-Pasos para crear el contenedor y poder levantarlo
+Ir a la raiz del proyecto y ejecutar en la terminal lo siguiente:
 ```bash
 # docker build -t challengeJM .
 ```
