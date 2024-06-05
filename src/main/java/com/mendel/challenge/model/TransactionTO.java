@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class TransactionTO {
     private Long id;
     private String type;
     private double amount;

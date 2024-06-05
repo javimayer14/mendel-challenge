@@ -1,7 +1,8 @@
 package com.mendel.challenge.controller;
 
+import com.mendel.challenge.model.StatusResponse;
 import com.mendel.challenge.model.TotalSumTO;
-import com.mendel.challenge.model.Transaction;
+import com.mendel.challenge.model.TransactionTO;
 import com.mendel.challenge.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,19 +19,19 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping("/{transactionId}")
-    public ResponseEntity<Transaction> createTransaction(@PathVariable("transactionId") Long tansactionId, @RequestBody Transaction transaction) {
-            Transaction createdTransaction = transactionService.createTransaction(transaction, tansactionId);
-            return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
+    public ResponseEntity<StatusResponse> createTransaction(@PathVariable("transactionId") Long tansactionId, @RequestBody TransactionTO transaction) {
+            StatusResponse statusResponse = transactionService.createTransaction(transaction, tansactionId);
+            return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
     @GetMapping("/types/{type}")
-    public ResponseEntity<List<Long>> createTransaction(@PathVariable("type") String type) {
+    public ResponseEntity<List<Long>> getTransactionsByType(@PathVariable("type") String type) {
             List<Long> transactionsByType = transactionService.getTransactionsByType(type);
             return new ResponseEntity<>(transactionsByType, HttpStatus.OK);
     }
 
     @GetMapping("/sum/{transactionId}")
-    public ResponseEntity<TotalSumTO> createTransaction(@PathVariable("transactionId") Long transactionId) {
+    public ResponseEntity<TotalSumTO> getTotalSumById(@PathVariable("transactionId") Long transactionId) {
             TotalSumTO totalSum = transactionService.getTotalSumById(transactionId);
             return new ResponseEntity<>(totalSum, HttpStatus.OK);
 
